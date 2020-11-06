@@ -216,6 +216,21 @@ const sendMessage = (messageContent: string) => async (dispatch: Dispatch, getSt
     0,
     getState
   );
+  // LINE送信
+  await fetch('/line/pushMessage', {
+    method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        threadId: threadId,
+        userId: state.contosoClient.user.identity,
+        request: {
+          content: messageContent,
+          senderDisplayName: displayName
+        }
+      })
+    });
 };
 
 const isValidThread = (threadId: string) => async (dispatch: Dispatch) => {
@@ -681,6 +696,10 @@ const sendReadReceiptHelper = async (chatThreadClient: ChatThreadClient, message
   await chatThreadClient.sendReadReceipt(postReadReceiptRequest);
 };
 
+const getExistingThreadIds = async () => {
+  return await fetch('/existingThreadIds');
+};
+
 export {
   sendMessage,
   getMessages,
@@ -696,5 +715,6 @@ export {
   updateTypingUsers,
   isValidThread,
   updateThreadTopicName,
-  getThread
+  getThread,
+  getExistingThreadIds
 };

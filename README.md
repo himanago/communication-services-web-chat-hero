@@ -1,4 +1,20 @@
-# Group Chat Sample
+# Group Chat Sample with LINE Bot
+
+----
+
+Azure Communication Services のサンプルアプリに、LINE Bot と 1 対多で会話できる機能を追加したサンプルアプリです。元のサンプルと同様 Azure に発行して動かすことができます。
+
+LINE Messaging API のチャネルを作成し、得られたチャネルシークレット・チャネルアクセストークン `appsettings.json` に追記して Azure に発行してください。
+
+Messaging API の Webhook エンドポイントには、`https://xxxxxxx.azurewebsites.net/line/webhook` の URL を指定して連携します。
+
+Bot の友だち追加時に新たな会話スレッドが作成され、Web アプリのトップページでリンクが表示されるので、そこからスレッド画面に遷移すると、LINE と会話できます。
+
+このサンプルの Web アプリではサーバー再起動でデータが消えてしまうので、再起動後は Bot のブロック→ブロック解除で新たにスレッドを作成してください。
+
+※ LINE での絵文字アイコン表示には [Twemoji](https://github.com/twitter/twemoji) の画像を利用しています。
+
+----
 
 This is a sample application to show how the Chat Web SDK can be used to build a single threaded chat experience. 
 The client-side application is a React based user interface which uses Redux for handling complex state while leveraging Microsoft Fluent UI. 
@@ -25,6 +41,7 @@ Additional documentation for this sample can be found on [Microsoft Docs](https:
     - ./Chat/ClientApp/src/Core : Containers a redux wrapper around the Chat SDK
     - ./Chat/ClientApp/src/index.js : Entry point for the client app
 - ./Chat/Controllers : Server app core logic for client app to get a token to use with the ACS Web Chat SDK
+- ./Chat/LineBot : Server app LINE Bot webhook endpoint logic and settings
 - ./Chat/Program.cs : Server app program logic
 - ./Chat/Startup.cs: Server app startup logic
 

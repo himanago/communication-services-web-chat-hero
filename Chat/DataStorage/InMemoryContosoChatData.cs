@@ -10,6 +10,8 @@ namespace Chat
 
 		public Dictionary<string, ContosoUserConfigModel> UseConfigStore { get; }
 
+		public Dictionary<string, string> LineUserIdentityStore { get; }
+
 		/// <summary>
 		/// To maintain a storage of all of the chat threads and their associated moderater "users" to add in new users
 		/// </summary>
@@ -17,6 +19,7 @@ namespace Chat
 		{
 			Store = new Dictionary<string, ContosoChatTokenModel>();
 			UseConfigStore = new Dictionary<string, ContosoUserConfigModel>();
+			LineUserIdentityStore = new Dictionary<string, string>();
 		}
 	}
 }

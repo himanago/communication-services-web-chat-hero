@@ -1,5 +1,8 @@
 ﻿// © Microsoft Corporation. All rights reserved.
 
+using Chat.LineBot;
+using LineDC.Messaging;
+using LineDC.Messaging.Webhooks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -10,7 +13,7 @@ using System;
 
 namespace Chat
 {
-	public class Startup
+    public class Startup
     {
         private const string AllowAnyOrigin = nameof(AllowAnyOrigin);
 
@@ -45,6 +48,13 @@ namespace Chat
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            // LINE Bot 機能の追加
+            var settings = Configuration.GetSection(nameof(LineBotSettings)).Get<LineBotSettings>();
+            services
+                .AddSingleton(settings)
+                .AddSingleton<ILineMessagingClient>(_ => LineMessagingClient.Create(settings.ChannelAccessToken))
+                .AddSingleton<IWebhookApplication, LineBotApp>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

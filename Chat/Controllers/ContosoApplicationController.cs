@@ -1,6 +1,8 @@
 ﻿// © Microsoft Corporation. All rights reserved.
 
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Chat
 {
@@ -39,6 +41,17 @@ namespace Chat
 		public ContosoUserConfigModel GetUserConfiguration(string userId)
 		{
 			return _store.UseConfigStore[userId];
+		}
+
+		/// <summary>
+		/// 既存スレッド情報
+		/// </summary>
+		/// <returns></returns>
+		[Route("existingThreadIds")]
+		[HttpGet]
+		public List<string> GetExistingThreadIds()
+		{
+			return _store.Store.Keys.ToList();
 		}
 	}
 }

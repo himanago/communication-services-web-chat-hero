@@ -8,7 +8,8 @@ import {
   Spinner,
 } from '@fluentui/react';
 import { ChatIcon } from '@fluentui/react-icons-northstar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getExistingThreadIds } from '../core/sideEffects';
 
 import heroSVG from '../assets/hero.svg';
 import {
@@ -62,6 +63,17 @@ export default (props: HomeScreenProps): JSX.Element => {
     );
   };
 
+  const [existingThreadIds, setExistingThreadIds] = useState([] as string[]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getExistingThreadIds();
+      const data = await res.json();
+      setExistingThreadIds(data);
+    };
+    fetchData();
+  }, []);
+
   const homeScreen = () => {
     return (
       <div>
@@ -112,6 +124,14 @@ export default (props: HomeScreenProps): JSX.Element => {
           />
         </Stack>
         <div className={moreInfoStyle}>
+          <div>
+            <div>▼ Existing Threads</div>
+            <ul className={listStyle}>
+              {existingThreadIds.map((data) => {
+                return <li><a href={`/?threadId=${data}`}>{data}</a></li>;
+              })}                  
+            </ul>
+          </div>
           <a href="https://aka.ms/spooldocs">Learn more about this sample</a>
         </div>
       </div>

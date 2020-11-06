@@ -8,5 +8,6 @@ namespace Chat
 	{
 		Dictionary<string, ContosoChatTokenModel> Store { get; }
 		Dictionary<string, ContosoUserConfigModel> UseConfigStore { get; }
+		Dictionary<string, string> LineUserIdentityStore { get; }
 	}
 }
